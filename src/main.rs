@@ -10,7 +10,7 @@ use color_eyre::Result;
 async fn main() -> Result<()> {
     color_eyre::install()?;
     let terminal = ratatui::init();
-    let mut app = App::default();
+    let app = App::default();
     let app_result = app.run(terminal).await;
     ratatui::restore();
     app_result

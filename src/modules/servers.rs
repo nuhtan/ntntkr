@@ -47,15 +47,15 @@ impl SelectedInput {
 pub struct ServerModuleData {
     pub server_list: Vec<ServerEntry>,
     servers_table_state: TableState,
-    selected_server: ServerEntry,
+    pub selected_server: ServerEntry,
     editable_server_data: ServerEntry,
 }
 
 #[derive(Clone, Default)]
 pub struct ServerEntry {
     name: TextInput,
-    address: TextInput,
-    port: TextInput
+    pub address: TextInput,
+    pub port: TextInput
 }
 
 impl From<&Server> for ServerEntry {
@@ -91,7 +91,7 @@ impl SanitizedForm for ServerEntry {
 pub struct ServerModule {}
 
 impl RenderableModule for ServerModule {
-    fn input_handling(app: &mut App, key: event::KeyEvent) -> () {
+    async fn input_handling(app: &mut App, key: event::KeyEvent) -> () {
         if let SelectedModule::ServerModule(module_status) = &app.selected_module {
             let editable_data = &mut app.module_data.server_module.editable_server_data;
             match module_status {

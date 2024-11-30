@@ -31,7 +31,7 @@ impl App {
         while !self.should_quit {
             tokio::select! {
                 _ = interval.tick() => { terminal.draw(|frame| self.draw(frame))?; },
-                Some(Ok(event)) = events.next() => self.handle_event(&event),
+                Some(Ok(event)) = events.next() => self.handle_event(&event).await,
             }
         }
         Ok(())
@@ -44,12 +44,12 @@ impl App {
         }
     }
 
-    fn handle_event(&mut self, event: &Event) {
+    async fn handle_event(&mut self, event: &Event) {
         if let Event::Key(key) = event {
             match self.selected_module {
-                SelectedModule::ServerModule(_) => ServerModule::input_handling(self, *key),
-                SelectedModule::UserModule(_) => UserModule::input_handling(self, *key),
-            }
+                SelectedModule::ServerModule(_) => ServerModule::input_handling(self, *key).await,
+                SelectedModule::UserModule(_) => UserModule::input_handling(self, *key).await,
+            };
         }
     }
 }

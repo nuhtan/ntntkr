@@ -19,7 +19,7 @@ pub struct ModuleData {
 }
 
 pub trait RenderableModule {
-    fn input_handling(app: &mut App, key: KeyEvent) -> ();
+    async fn input_handling(app: &mut App, key: KeyEvent) -> ();
     fn render(app: &mut App, frame: &mut Frame) -> ();
 }
 
